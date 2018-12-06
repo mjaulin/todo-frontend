@@ -1,0 +1,8 @@
+<section>
+  <ul class="tasks">
+    <li *ngFor="let task of taskService.tasks | async"
+        [class.checked]="task.completed">
+      <app-task [task]="task"></app-task>
+    </li>
+  </ul>
+</section>

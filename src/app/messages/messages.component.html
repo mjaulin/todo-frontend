@@ -1,0 +1,6 @@
+<div class="message-box" *ngIf="messageService.messages.length">
+  <div *ngFor='let message of messageService.messages; let i = index'>
+    <span (click)="onDelete(i)">×</span>
+    {{message}}
+  </div>
+</div>

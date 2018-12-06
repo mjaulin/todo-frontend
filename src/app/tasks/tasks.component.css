@@ -1,0 +1,19 @@
+.tasks li {
+  border-bottom: #a9a9a9 solid 1px;
+  cursor: pointer;
+  position: relative;
+  list-style-type: none;
+  font-size: 18px;
+  transition: 0.2s;
+  user-select: none;
+}
+
+.tasks li.loading, li.loading.checked {
+  color: #dfdfdf;
+  font-style: italic;
+}
+
+.tasks li.checked {
+  color: #b9b9b9;
+  text-decoration: line-through;
+}

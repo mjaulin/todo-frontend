@@ -1,0 +1,16 @@
+header {
+  background-color: #0074D9;
+  padding: 10px 15%;
+  color: white;
+  text-align: center;
+}
+
+header:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+header h1 {
+  margin: 5px;
+}

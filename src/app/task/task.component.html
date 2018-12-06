@@ -1,0 +1,11 @@
+<div class="task">
+  <div *ngIf="!editing">
+    <span [ngClass]="{'icon' : true, 'complete': task.completed}" (click)="onCheck(task)"></span>
+    <div>
+      <label (click)="onEdit(task)">{{ task.label }}</label>
+    </div>
+    <span class="destroy" (click)="onDelete(task)">×</span>
+  </div>
+  <input class="edit" *ngIf="editing" #editedTask [value]="task.label" (keyup.enter)="onUpdate(task, editedTask.value)" (keyup.escape)="onEdit(task)">
+</div>
+

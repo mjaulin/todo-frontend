@@ -1,0 +1,38 @@
+div.message-box {
+  padding: 20px;
+  color: white;
+  margin: 0 auto 15px auto;
+  position: absolute;
+  width: 100%;
+  right: 0;
+  bottom: 0;
+}
+
+div.message-box div {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+  margin-bottom: 10px;
+}
+
+div.message-box span {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+div.message-box span:hover {
+  color: black;
+}
+
+div.message-box p {
+  text-align: right;
+  font-size: 1.5em;
+  margin: 0;
+  color: black;
+}
