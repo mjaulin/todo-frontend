@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Observable, BehaviorSubject, of, throwError} from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { environment } from './../../environments/environment';
 import {Task} from "../model/task";
 import { MessageService } from './message.service';
 
@@ -14,7 +15,7 @@ const httpOptions = {
 })
 export class TaskService {
 
-  private taskUrl = 'http://localhost:8080/api/tasks';
+  private taskUrl = `${environment.apiUrl}/tasks`;
 
   private _tasks$ = new BehaviorSubject<Task[]>([]);
 
@@ -30,7 +31,7 @@ export class TaskService {
   
   public fetchTasks(): void {
     this.http.get<Task[]>(this.taskUrl).pipe(
-        tap(() => this._log('fetched heroes')),
+        tap(() => TaskService._log('fetched heroes')),
         catchError(this._handleError('Error while getting all tasks', []))
       ).subscribe(value => {
         this._tasks = value;
@@ -40,7 +41,7 @@ export class TaskService {
 
   public addTask (task: Task): void {
     this.http.post<Task>(this.taskUrl, task, httpOptions).pipe(
-      tap((task: Task) => this._log(`added task id=${task.id}`)),
+      tap((task: Task) => TaskService._log(`added task id=${task.id}`)),
       catchError(this._handleError<Task>('Canno\'t add task'))
     ).subscribe((data: Task) => {
       this._tasks.push(data);
@@ -50,11 +51,12 @@ export class TaskService {
 
   public updateTask (task: Task): void {
     this.http.put(`${this.taskUrl}/${task.id}`, task, httpOptions).pipe(
-      tap(() => this._log(`updated task id=${task.id}`)),
+      tap(() => TaskService._log(`updated task id=${task.id}`)),
       catchError(this._handleError<any>('Error while update task', {}))
-    ).subscribe((data: any) => {
+    ).subscribe((data: Task) => {
       this._tasks.filter(t => t.id === data.id).forEach(t => {
         t.label = data.label;
+        t.completed = data.completed;
       });
       this._tasks$.next(this._tasks);
     });
@@ -69,7 +71,7 @@ export class TaskService {
     ).subscribe(() => {
           this._tasks = this._tasks.filter(t => t.id != id);
           this._tasks$.next(this._tasks);
-          this._log(`deleted task id=${id}`)
+          TaskService._log(`deleted task id=${id}`)
         }
     );
   }
@@ -85,7 +87,7 @@ export class TaskService {
     };
   }
 
-  private _log(message: string) {
+  private static _log(message: string) {
     console.log(`HeroService: ${message}`);
   }
 
